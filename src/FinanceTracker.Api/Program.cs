@@ -2,6 +2,7 @@ using System.Text;
 using FinanceTracker.Api.Configuration;
 using FinanceTracker.Api.Domain;
 using FinanceTracker.Api.Features.Auth;
+using FinanceTracker.Api.Features.Categories;
 using FinanceTracker.Api.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,7 @@ if (string.IsNullOrWhiteSpace(jwtOptions.SigningKey) || jwtOptions.SigningKey.Le
 }
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<CategoryService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -62,6 +64,7 @@ app.MapGet("/", () => Results.Ok(new
 
 app.MapHealthChecks("/health");
 app.MapAuthEndpoints();
+app.MapCategoryEndpoints();
 
 app.Run();
 

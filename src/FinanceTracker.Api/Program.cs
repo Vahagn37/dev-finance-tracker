@@ -2,6 +2,7 @@ using System.Text;
 using FinanceTracker.Api.Configuration;
 using FinanceTracker.Api.Domain;
 using FinanceTracker.Api.Features.Auth;
+using FinanceTracker.Api.Features.Budgets;
 using FinanceTracker.Api.Features.Categories;
 using FinanceTracker.Api.Features.Transactions;
 using FinanceTracker.Api.Infrastructure.Persistence;
@@ -26,6 +27,7 @@ if (string.IsNullOrWhiteSpace(jwtOptions.SigningKey) || jwtOptions.SigningKey.Le
 }
 builder.Services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<BudgetService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TransactionService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -66,6 +68,7 @@ app.MapGet("/", () => Results.Ok(new
 
 app.MapHealthChecks("/health");
 app.MapAuthEndpoints();
+app.MapBudgetEndpoints();
 app.MapCategoryEndpoints();
 app.MapTransactionEndpoints();
 

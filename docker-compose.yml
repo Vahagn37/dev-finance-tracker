@@ -32,6 +32,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - finance-tracker-data-protection:/root/.aspnet/DataProtection-Keys
     healthcheck:
       test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:8080/health/ready"]
       interval: 10s
@@ -41,3 +43,4 @@ services:
 
 volumes:
   finance-tracker-postgres-data:
+  finance-tracker-data-protection:

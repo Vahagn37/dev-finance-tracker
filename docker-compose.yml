@@ -16,5 +16,28 @@ services:
       timeout: 5s
       retries: 10
 
+  api:
+    build:
+      context: .
+      dockerfile: src/FinanceTracker.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=finance_tracker;Username=finance_tracker;Password=finance_tracker_dev_password
+      Jwt__Issuer: FinanceTracker.Api
+      Jwt__Audience: FinanceTracker.Client
+      Jwt__SigningKey: local-compose-signing-key-change-me-123456789
+      Database__ApplyMigrations: "true"
+    ports:
+      - "5178:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:8080/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
 volumes:
   finance-tracker-postgres-data:

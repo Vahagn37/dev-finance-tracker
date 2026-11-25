@@ -77,6 +77,8 @@ app.MapGet("/", () => Results.Ok(new
 }));
 
 app.MapHealthChecks("/health");
+app.MapHealthChecks("/health/ready");
+app.MapGet("/health/live", () => Results.Ok(new { status = "Healthy" }));
 app.MapAuthEndpoints();
 app.MapBudgetEndpoints();
 app.MapCategoryEndpoints();

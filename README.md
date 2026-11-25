@@ -11,6 +11,27 @@ dotnet run --project src/FinanceTracker.Api
 
 Visit `http://localhost:5178/health` after the API starts.
 
+## Run the complete stack in containers
+
+```bash
+colima start
+docker compose up --build
+```
+
+The containerized API is available at `http://localhost:5178` and applies development migrations automatically. Health endpoints are:
+
+```text
+/health       General health status
+/health/live  Process liveness (does not require PostgreSQL)
+/health/ready  Database readiness
+```
+
+Stop the stack with:
+
+```bash
+docker compose down
+```
+
 To apply the checked-in database migration during local development, set `Database:ApplyMigrations` to `true` in a local configuration override, or run the EF command directly:
 
 ```bash

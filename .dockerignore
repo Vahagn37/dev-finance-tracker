@@ -1,0 +1,13 @@
+.git
+.github
+.idea
+.vs
+**/bin/
+**/obj/
+**/.user
+*.suo
+*.user
+docs/
+tests/
+README.md
+docker-compose.yml

@@ -5,6 +5,7 @@ using FinanceTracker.Api.Features.Auth;
 using FinanceTracker.Api.Features.Budgets;
 using FinanceTracker.Api.Features.Categories;
 using FinanceTracker.Api.Features.Transactions;
+using FinanceTracker.Api.Features.Reports;
 using FinanceTracker.Api.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BudgetService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<TransactionService>();
+builder.Services.AddScoped<MonthlyReportService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -71,6 +73,7 @@ app.MapAuthEndpoints();
 app.MapBudgetEndpoints();
 app.MapCategoryEndpoints();
 app.MapTransactionEndpoints();
+app.MapMonthlyReportEndpoints();
 
 app.Run();
 
